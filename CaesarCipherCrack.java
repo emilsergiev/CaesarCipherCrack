@@ -1,3 +1,23 @@
+/******************************************************************************
+ *                                                                            *
+ *    CaesarCipherCrack is a tool for decoding Caesar Cipher encrypted text.  *
+ *    Copyright (C) 2017  Emil Sergiev <http://www.emil.free.bg>              *
+ *                                                                            *
+ *    This program is free software: you can redistribute it and/or modify    *
+ *    it under the terms of the GNU General Public License as published by    *
+ *    the Free Software Foundation, either version 3 of the License, or       *
+ *    (at your option) any later version.                                     *
+ *                                                                            *
+ *    This program is distributed in the hope that it will be useful,         *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
+ *    GNU General Public License for more details.                            *
+ *                                                                            *
+ *    You should have received a copy of the GNU General Public License       *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
+ *                                                                            *
+ ******************************************************************************/
+
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -29,12 +49,12 @@ public class CaesarCipherCrack {
 
 	public static char[] getNewSorted(char[] original) {
 		// TODO Create new sorted array without the spaces and return it
-		int sortedLength = 0; // the length for the new sorted array
+		int newLength = 0; // the length for the new sorted array
 		for (int i = 0; i < original.length; i++) {
 			if (original[i] != ' ')
-				sortedLength++;
+				newLength++;
 		}
-		char sorted[] = new char[sortedLength]; // the new sorted array
+		char sorted[] = new char[newLength]; // the new sorted array
 		int index = 0; // index positions for the sorted array
 		for (int i = 0; i < original.length; i++) {
 			if (original[i] != ' ') {
@@ -48,10 +68,8 @@ public class CaesarCipherCrack {
 
 	public static void setCommonKeys(char mostPopular, byte[] commonKey) {
 		// TODO Set the 3 most common keys -- e, t and (h or a)
-		if (mostPopular != 'e')
-			commonKey[0] = findKey(mostPopular, 'e');
-		else
-			commonKey[0] = findKey(mostPopular, 't');
+		if (mostPopular != 'e') commonKey[0] = findKey(mostPopular, 'e');
+		else commonKey[0] = findKey(mostPopular, 't');
 
 		if (mostPopular != 't' && mostPopular != 'e')
 			commonKey[1] = findKey(mostPopular, 't');
@@ -91,10 +109,8 @@ public class CaesarCipherCrack {
 
 			if (letter != ' ') { // leaves spaces as spaces
 				letter = (char) (letter - key);			
-				if (letter > 'z')
-					letter = (char) (letter - 26);
-				if (letter < 'a')
-					letter = (char) (letter + 26);
+				if (letter > 'z') letter = (char) (letter - 26);
+				if (letter < 'a') letter = (char) (letter + 26);
 			}
 			array[i] = letter;
 		}
@@ -103,31 +119,36 @@ public class CaesarCipherCrack {
 
 	public static void main(String[] args) {
 		// TODO The main method
-		System.out.println("Welcome to CaesarCipherCrack - by Emil Nomel");
-		System.out.println("--------------------------------------------");
-		System.out.println("A tool to decode text which has been encrypted with the Caesar Cipher");
-		System.out.println("=====================================================================");
+		System.out.println("Welcome to CaesarCipherCrack - by Emil Sergiev");
+		System.out.println("----------------------------------------------");
+		System.out.println
+		("A tool to decode text which has been encrypted with the Caesar Cipher");
+		System.out.println
+		("=====================================================================");
 		Scanner input = new Scanner(System.in);
 		System.out.println("Enter the encrypted text bellow to be decoded:\n");
 		String encrypted = input.nextLine();
 		encrypted = encrypted.toLowerCase();
 		char[] charArray = encrypted.toCharArray();
-		char mostPopular = findPopular(charArray); // the most popular char in the encrypted text
+		char mostPopular = findPopular(charArray); // the most popular char
 		byte[] commonKey = new byte[3]; // the 3 most common keys
 
 		setCommonKeys(mostPopular, commonKey); // set the 3 most common keys
 
 		/******* Attempt the crack with the 3 most common keys *******/
-		System.out.println("\nTesting with the 3 common keys: " + Arrays.toString(commonKey));
+		System.out.println("\nTesting with the 3 common keys: " 
+				+ Arrays.toString(commonKey));
 		System.out.println("--------------------------------------------");
 		for (int i = 0; i < commonKey.length; i++) {
-			System.out.println("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]) + "\n");
+			System.out.println
+			("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]) + "\n");
 		}
 		System.out.println("============================================\n");
-		
+
 		/******* Choice to exit or do a brute force attack *******/
 		System.out.println("Not satisfied with the results???");
-		System.out.print("Enter 1 to exit or 2 to see the results with the rest of the 22 keys: ");
+		System.out.print
+		("Enter 1 to exit or 2 to see the results with the rest of the 22 keys: ");
 		byte choice = input.nextByte();
 
 		while (true) {
