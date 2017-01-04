@@ -8,9 +8,9 @@ How it works:
   (according to other crypt analists they are e, t, a... also, the most distinctive ordinary ABC letters between languages are a, e, o, i and l, n, t, d.)
 - Finds the most common symbol in the encrypted text
 - Calculates how much is the offset from it to e, t, h
-  (if one of these 3 happens to be the most common char in the encrypted text then we use the 'a' char instead)
-- The three decrypted versions are displayed of the original text
-- If the user is not satisfied with the result, the remaining 22 versions of the text are shown
+  (if one of those 3 happens to be the most common char in the encrypted text then we use the 'a' char instead)
+- The three decrypted versions of the original text are displayed on the screen
+- If the user is not satisfied with the results, the remaining 22 versions of the text are shown
 
 # A “better version”
 (according to my school^ and not implemented at this time^^):
