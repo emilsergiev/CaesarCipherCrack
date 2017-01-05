@@ -1,27 +1,46 @@
-/******************************************************************************
- *                                                                            *
- *    CaesarCipherCrack is a tool for decoding Caesar Cipher encrypted text.  *
- *    Copyright (C) 2017  Emil Sergiev <http://www.emil.free.bg>              *
- *                                                                            *
- *    This program is free software: you can redistribute it and/or modify    *
- *    it under the terms of the GNU General Public License as published by    *
- *    the Free Software Foundation, either version 3 of the License, or       *
- *    (at your option) any later version.                                     *
- *                                                                            *
- *    This program is distributed in the hope that it will be useful,         *
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of          *
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the           *
- *    GNU General Public License for more details.                            *
- *                                                                            *
- *    You should have received a copy of the GNU General Public License       *
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.   *
- *                                                                            *
- ******************************************************************************/
+/*******************************************************************************
+ *    CaesarCipherCrack is a tool for decoding Caesar Cipher encrypted text.   *
+ *    Copyright (C) 2017  Emil Sergiev <http://www.emil.free.bg>               *
+ *                                                                             *
+ *    This program is free software: you can redistribute it and/or modify     *
+ *    it under the terms of the GNU General Public License as published by     *
+ *    the Free Software Foundation, either version 3 of the License, or        *
+ *    (at your option) any later version.                                      *
+ *                                                                             *
+ *    This program is distributed in the hope that it will be useful,          *
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of           *
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the            *
+ *    GNU General Public License for more details.                             *
+ *                                                                             *
+ *    You should have received a copy of the GNU General Public License        *
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.    *
+ *******************************************************************************/
 
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class CaesarCipherCrack {
+	
+	public static void showWarranty() {
+		// TODO Show the WARRANTY
+		System.out.println("  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY");
+		System.out.println("APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT");
+		System.out.println("HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY");
+		System.out.println("OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,");
+		System.out.println("THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR");
+		System.out.println("PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM");
+		System.out.println("IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF");
+		System.out.println("ALL NECESSARY SERVICING, REPAIR OR CORRECTION.");
+	}
+	public static void showConditions() {
+		// TODO Show the TERMS AND CONDITIONS (or just point to them...)
+		System.out.println("This program is free software: you can redistribute it and/or modify");
+		System.out.println("it under the terms of the GNU General Public License as published by");
+		System.out.println("the Free Software Foundation, either version 3 of the License, or");
+		System.out.println("(at your option) any later version.");
+		System.out.println("You should have received a copy of the GNU General Public License");
+		System.out.println("along with this program.  If not, see <http://www.gnu.org/licenses/>.");
+	}
 
 	public static char findPopular(char[] original) {
 		// TODO Find the most popular char in the original text
@@ -119,16 +138,21 @@ public class CaesarCipherCrack {
 
 	public static void main(String[] args) {
 		// TODO The main method
-		System.out.println("Welcome to CaesarCipherCrack - by Emil Sergiev");
-		System.out.println("----------------------------------------------");
-		System.out.println
-		("A tool to decode text which has been encrypted with the Caesar Cipher");
-		System.out.println
-		("=====================================================================");
 		Scanner input = new Scanner(System.in);
-		System.out.println("Enter the encrypted text bellow to be decoded:\n");
-		String encrypted = input.nextLine();
-		encrypted = encrypted.toLowerCase();
+		System.out.println("CaesarCipherCrack Copyright (C) 2017 Emil Sergiev");
+		System.out.println("-------------------------------------------------");
+		System.out.println("A tool to decode text which has been encrypted with the Caesar Cipher");
+		System.out.println(" ___________________________________________________________________________");
+		System.out.println("|                                                                           |");
+		System.out.println("| This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.|");
+		System.out.println("| This is free software, and you are welcome to redistribute it             |");
+		System.out.println("| under certain conditions; type `show c' for details.                      |");
+		System.out.println("|___________________________________________________________________________|");
+		String terms = input.nextLine();
+		if (terms.equals("show w")) showWarranty();
+		if (terms.equals("show c")) showConditions();
+		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
+		String encrypted = input.nextLine(); encrypted = encrypted.toLowerCase();
 		char[] charArray = encrypted.toCharArray();
 		char mostPopular = findPopular(charArray); // the most popular char
 		byte[] commonKey = new byte[3]; // the 3 most common keys
@@ -153,7 +177,7 @@ public class CaesarCipherCrack {
 
 		while (true) {
 			if (choice == 1) {
-				System.out.println("Have a nice day :)");
+				System.out.println("\nHave a nice day :)");
 				break;
 			} else if (choice == 2) {
 				System.out.println("\nBrute force attack with the rest of the 22 keys:");
