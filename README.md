@@ -12,8 +12,8 @@ How it works:
 - The three decrypted versions of the original text are displayed on the screen
 - If the user is not satisfied with the results, the remaining 22 versions of the text are shown
 
-# A “better version”
-(according to my school^ and not implemented at this time^^):
+# A “better version”^
+(not implemented at this time^^)
 
 How it works:
 - The words for each of the 25 versions of the text are compared with a previously introduced dictionary (English – 10,000 words)
@@ -23,4 +23,4 @@ How it works:
 - The first reason is that this version will only work for English encrypted text. While the original implemented version will work for any foreign language encrypted text that uses the pure Latin alphabet! 
 - Also, it will needlessly slow down the program and will be very RAM memory intensive and slowing down the whole computer system as well.
 
-^^ However, I will be implementing this, in my opinion, “bad version” just for a school project purposes in the very near future.
+^^ However, I will be implementing this, in my opinion, “better version” just for a school project purposes in the very near future.
