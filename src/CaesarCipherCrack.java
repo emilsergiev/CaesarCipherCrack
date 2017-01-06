@@ -39,7 +39,7 @@ public class CaesarCipherCrack {
 		System.out.println("the Free Software Foundation, either version 3 of the License, or");
 		System.out.println("(at your option) any later version.");
 		System.out.println("You should have received a copy of the GNU General Public License");
-		System.out.println("along with this program.  If not, see <http://www.gnu.org/licenses/>.");
+		System.out.println("along with this program.  If not, see http://www.gnu.org/licenses");
 	}
 
 	public static char findPopular(char[] original) {
@@ -86,7 +86,7 @@ public class CaesarCipherCrack {
 	}
 
 	public static void setCommonKeys(char mostPopular, byte[] commonKey) {
-		// TODO Set the 3 most common keys -- e, t and (h or a)
+		// TODO Set the 3 most common keys -- the distance to e, t, h or a
 		if (mostPopular != 'e') commonKey[0] = findKey(mostPopular, 'e');
 		else commonKey[0] = findKey(mostPopular, 't');
 
@@ -149,44 +149,42 @@ public class CaesarCipherCrack {
 		System.out.println("| under certain conditions; type `show c' for details.                      |");
 		System.out.println("|___________________________________________________________________________|");
 		String terms = input.nextLine();
-		if (terms.equals("show w")) showWarranty();
-		if (terms.equals("show c")) showConditions();
+		if (terms.equals("show w")) showWarranty(); // print out warranty 
+		if (terms.equals("show c")) showConditions(); // print out conditions
 		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
 		String encrypted = input.nextLine(); encrypted = encrypted.toLowerCase();
-		char[] charArray = encrypted.toCharArray();
+		char[] charArray = encrypted.toCharArray(); // the encrypted text converted to char array
 		char mostPopular = findPopular(charArray); // the most popular char
 		byte[] commonKey = new byte[3]; // the 3 most common keys
 
 		setCommonKeys(mostPopular, commonKey); // set the 3 most common keys
 
 		/******* Attempt the crack with the 3 most common keys *******/
-		System.out.println("\nTesting with the 3 common keys: " 
-				+ Arrays.toString(commonKey));
-		System.out.println("--------------------------------------------");
+		System.out.println("\nTesting with the 3 common keys: " + Arrays.toString(commonKey));
+		System.out.println("-------------------------------------------");
 		for (int i = 0; i < commonKey.length; i++) {
-			System.out.println
-			("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]) + "\n");
+			System.out.println("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]) + "\n");
 		}
-		System.out.println("============================================\n");
+		System.out.println("===========================================\n");
 
 		/******* Choice to exit or do a brute force attack *******/
-		System.out.println("Not satisfied with the results???");
-		System.out.print
-		("Enter 1 to exit or 2 to see the results with the rest of the 22 keys: ");
+		System.out.println("Not satisfied with the results???\n");
+		System.out.println("For brute force attack enter 1");
+		System.out.println("To exit the program enter 2\n");
 		byte choice = input.nextByte();
 
 		while (true) {
 			if (choice == 1) {
-				System.out.println("\nHave a nice day :)");
-				break;
-			} else if (choice == 2) {
 				System.out.println("\nBrute force attack with the rest of the 22 keys:");
 				System.out.println("------------------------------------------------");
 				for (byte i = 1; i < 26; i++) {
 					if (commonKey[0] != i && commonKey[1] != i && commonKey[2] != i)
 						System.out.println("Key " + i + ": " + decrypt(encrypted, i) + "\n");
 				}
-				System.out.println("================= the end =================");
+				System.out.println("<<< the end >>>");
+				break;
+			} else if (choice == 2) {
+				System.out.println("\nHave a nice day :)");
 				break;
 			} else {
 				System.out.print("Please enter 1 or 2 only! ");
