@@ -48,7 +48,7 @@ public class CaesarCipherCrackV2 {
 	
 	public static void extractWordsIntoArray(String[] dicWords) throws IOException {
 		// TODO Extract the words from the dictionary file into the dictionary array
-		File dir = new File(".."); //use .. to get parent directory
+		File dir = new File("."); //use . to get same directory
 		// the dictionary file
 		File dic = new File(dir.getCanonicalPath() + File.separator + "google-10000-english.txt");				
 		// construct FileInputStream from the dictionary file
