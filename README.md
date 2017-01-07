@@ -1,26 +1,31 @@
 # CaesarCipherCrack
-Cracking the Caesar cipher
+Cracking the Caesar cipher Version 1.0
 
 When encrypted text is entered, it display the original, without asking what is the offset.
 
 How it works:
-- It is known that the 3 most common letters in the English language are e, t, h
-  (according to other crypt analists they are: e, t, a... also, the most distinctive ordinary ABC letters between languages are a, e, o, i and l, n, t, d.)
+- It is known that the 3 most common letters in the English language are e, t, h (or a)
+  -- according to other crypt annalists they are: e, t, a... 
+  also, the most distinctive ordinary ABC letters between languages are a, e, o, i and l, n, t, d.
 - Finds the most common symbol in the encrypted text
 - Calculates how much is the offset from it to e, t, h
-  (if one of those 3 happens to be the most common char in the encrypted text then we use the 'a' char instead)
+  (if one of those 3 happens to be the most common char in the encrypted text then it substitutes it with the 'a' char instead)
 - The three decrypted versions of the original text are displayed on the screen
 - If the user is not satisfied with the results, the remaining 22 versions of the text are shown
 
-# A “better version”^
-(not implemented at this time^^)
+# CaesarCipherCrackV2
+Cracking the Caesar cipher Version 2.0
+(A different version using a different method)^
 
 How it works:
 - The words for each of the 25 versions of the text are compared with a previously introduced dictionary (English – 10,000 words)
 - The text that has the most words from the dictionary, is displayed on the screen
 
-^ I personally do not agree this to be a better version for the following reasons:
-- The main reason is that this version will only work for English encrypted text. While the original implemented version will work for any foreign language encrypted text that uses the pure Latin alphabet! 
-- Also, it will needlessly slow down the program and will be more RAM memory intensive and maybe slowing down the whole computer system as well.
-
-^^ I will be implementing this, “better version” just for a school project purposes and educational purposes in the very near future.
+^ Pros and Cons:
+- The good side is that this version of the software will display only the correct decoded version of the English encrypted text 
+  without clattering up the display with the incorrect decodings.
+- The main downside is that this version will work only for English encrypted text. 
+  The original version will work for any foreign language encrypted text that uses the pure Latin alphabet! 
+- Another downside is that it will be slower than the original version. 
+  It uses more RAM memory resources and maybe slowing down the whole computer system as well if the encrypted text is too large... 
+  I'm not an expert on memory management but my logic tells me that this method uses much more memory resources.
