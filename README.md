@@ -15,15 +15,18 @@ How it works:
 
 # CaesarCipherCrackV2
 Cracking the Caesar cipher Version 2.0
-(A different version using a different method)^
+
+A different version using a different method^
 
 How it works:
 - The words for each of the 25 versions of the text are compared with a previously introduced dictionary (English – 10,000 words)
 - The text that has the most words from the dictionary, is displayed on the screen
 
 ^ Pros and Cons:
-- The good side is that this version of the software will display only the correct decoded version of the English encrypted text 
+- The main good side of this version is that it is much more user friendly.
+- Another good side is that it will display only the correct decoded version of the English encrypted text 
   without clattering up the display with the incorrect decodings.
+- ...
 - The main downside is that this version will work only for English encrypted text. 
   The original version will work for any foreign language encrypted text that uses the pure Latin alphabet! 
 - Another downside is that it will be slower than the original version. 
