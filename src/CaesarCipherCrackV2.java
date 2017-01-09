@@ -30,7 +30,7 @@ public class CaesarCipherCrackV2 {
 		File dic = new File(dir.getCanonicalPath() + File.separator + "google-10000-english.txt");
 		FileInputStream fis = new FileInputStream(dic);
 		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-		// populate the dictionary word array
+		
 		for (int i = 0; i < dicWords.length; i++) {
 			dicWords[i] = br.readLine();
 		}

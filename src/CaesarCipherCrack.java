@@ -58,7 +58,7 @@ public class CaesarCipherCrack {
 				index++;
 			}
 		}
-		Arrays.sort(sorted); // final sorting of the sorted array
+		Arrays.sort(sorted);
 		return sorted;
 	}
 
@@ -121,7 +121,7 @@ public class CaesarCipherCrack {
 		char mostPopular = findPopular(charArray); // the most popular char
 		byte[] commonKey = new byte[3]; // the 3 most common keys
 
-		setCommonKeys(mostPopular, commonKey); // set the 3 most common keys
+		setCommonKeys(mostPopular, commonKey);
 
 		/******* Attempt the crack with the 3 most common keys *******/
 		System.out.println("\nTesting with the 3 common keys: " + Arrays.toString(commonKey));
