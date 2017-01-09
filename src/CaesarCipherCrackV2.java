@@ -26,7 +26,7 @@ import java.util.Scanner;
 public class CaesarCipherCrackV2 {
 	
 	public static void extractWordsIntoArray(String[] dicWords) throws IOException {
-		File dir = new File("."); //use . to get same directory
+		File dir = new File("."); // use . to get same directory
 		File dic = new File(dir.getCanonicalPath() + File.separator + "google-10000-english.txt");
 		FileInputStream fis = new FileInputStream(dic);
 		BufferedReader br = new BufferedReader(new InputStreamReader(fis));
