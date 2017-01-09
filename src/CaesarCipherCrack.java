@@ -20,30 +20,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class CaesarCipherCrack {
-	
-	public static void showWarranty() {
-		// TODO Show the WARRANTY
-		System.out.println("  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY");
-		System.out.println("APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT");
-		System.out.println("HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM \"AS IS\" WITHOUT WARRANTY");
-		System.out.println("OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,");
-		System.out.println("THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR");
-		System.out.println("PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM");
-		System.out.println("IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF");
-		System.out.println("ALL NECESSARY SERVICING, REPAIR OR CORRECTION.");
-	}
-	public static void showConditions() {
-		// TODO Show the TERMS AND CONDITIONS (or just point to them...)
-		System.out.println("This program is free software: you can redistribute it and/or modify");
-		System.out.println("it under the terms of the GNU General Public License as published by");
-		System.out.println("the Free Software Foundation, either version 3 of the License, or");
-		System.out.println("(at your option) any later version.");
-		System.out.println("You should have received a copy of the GNU General Public License");
-		System.out.println("along with this program.  If not, see http://www.gnu.org/licenses");
-	}
 
 	public static char findPopular(char[] original) {
-		// TODO Find the most popular char in the original text
 		char sorted[] = getNewSorted(original);
 		char previous = sorted[0];
 		char popular = sorted[0];
@@ -67,14 +45,13 @@ public class CaesarCipherCrack {
 	}
 
 	public static char[] getNewSorted(char[] original) {
-		// TODO Create new sorted array without the spaces and return it
-		int newLength = 0; // the length for the new sorted array
+		int newLength = 0; // the length for the new array to be sorted
 		for (int i = 0; i < original.length; i++) {
 			if (original[i] != ' ')
 				newLength++;
 		}
-		char sorted[] = new char[newLength]; // the new sorted array
-		int index = 0; // index positions for the sorted array
+		char sorted[] = new char[newLength]; // the new array to be sorted
+		int index = 0; // index positions for the new array to be sorted
 		for (int i = 0; i < original.length; i++) {
 			if (original[i] != ' ') {
 				sorted[index] = original[i];
@@ -86,7 +63,6 @@ public class CaesarCipherCrack {
 	}
 
 	public static void setCommonKeys(char mostPopular, byte[] commonKey) {
-		// TODO Set the 3 most common keys -- the distance to e, t, h or a
 		if (mostPopular != 'e') commonKey[0] = findKey(mostPopular, 'e');
 		else commonKey[0] = findKey(mostPopular, 't');
 
@@ -102,8 +78,7 @@ public class CaesarCipherCrack {
 	}
 
 	public static byte findKey(char popular, char common) {
-		// TODO Find and return the key (the distance between the popular and the common)
-		byte key; // the key that we will return
+		byte key; // the key (offset) that will be returned
 		char start = 'a'; // start from a to z
 		byte popPos = 0; // the position of the most popular char in the text
 		byte comPos = 0; // the position of the most common letters in English (e, t, h, or a)
@@ -120,37 +95,26 @@ public class CaesarCipherCrack {
 	}
 
 	public static String decrypt(String encrypted, byte key) {
-		// TODO Crack the code with a given key (distance)
 		char[] array = encrypted.toCharArray();
 
 		for (int i = 0; i < array.length; i++) {
 			char letter = array[i];
 
-			if (letter != ' ') { // leaves spaces as spaces
+			if (letter != ' ') {
 				letter = (char) (letter - key);			
 				if (letter > 'z') letter = (char) (letter - 26);
 				if (letter < 'a') letter = (char) (letter + 26);
 			}
 			array[i] = letter;
 		}
-		return new String(array); // return the array as a string
+		return new String(array);
 	}
 
 	public static void main(String[] args) {
-		// TODO The main method
 		Scanner input = new Scanner(System.in);
-		System.out.println("CaesarCipherCrack Copyright (C) 2017 Emil Sergiev");
-		System.out.println("-------------------------------------------------");
-		System.out.println("A tool to decode text which has been encrypted with the Caesar Cipher");
-		System.out.println(" ___________________________________________________________________________");
-		System.out.println("|                                                                           |");
-		System.out.println("| This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.|");
-		System.out.println("| This is free software, and you are welcome to redistribute it             |");
-		System.out.println("| under certain conditions; type `show c' for details.                      |");
-		System.out.println("|___________________________________________________________________________|");
-		String terms = input.nextLine();
-		if (terms.equals("show w")) showWarranty(); // print out warranty 
-		if (terms.equals("show c")) showConditions(); // print out conditions
+		System.out.println("CaesarCipherCrack Copyright (C) 2017 Emil Sergiev GNU GPL 3.0");
+		System.out.println("-------------------------------------------------------------");
+		System.out.println("A tool to decode Caesar cipher encrypted text");
 		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
 		String encrypted = input.nextLine(); encrypted = encrypted.toLowerCase();
 		char[] charArray = encrypted.toCharArray(); // the encrypted text converted to char array
