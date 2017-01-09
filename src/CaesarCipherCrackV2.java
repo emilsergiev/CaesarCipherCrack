@@ -25,6 +25,21 @@ import java.util.Scanner;
 
 public class CaesarCipherCrackV2 {
 	
+	public static void showInitialMessage() {
+		System.out.println("CaesarCipherCrackV2 Copyright (C) 2017 Emil Sergiev GNU GPL 3.0");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println("A tool to decode Caesar cipher encrypted English text");
+		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
+	}
+	
+	public static String getUserInput() {
+		Scanner input = new Scanner(System.in);
+		String encrypted = input.nextLine();
+		encrypted = encrypted.toLowerCase();
+		input.close();
+		return encrypted;
+	}
+	
 	public static void extractWordsIntoArray(String[] dicWords) throws IOException {
 		File dir = new File("."); // use . to get same directory
 		File dic = new File(dir.getCanonicalPath() + File.separator + "google-10000-english.txt");
@@ -85,26 +100,26 @@ public class CaesarCipherCrackV2 {
 		return index;
 	}
 	
-	public static void main(String[] args) throws IOException {
-		Scanner input = new Scanner(System.in);
-		System.out.println("CaesarCipherCrackV2 Copyright (C) 2017 Emil Sergiev GNU GPL 3.0");
-		System.out.println("---------------------------------------------------------------");
-		System.out.println("A tool to decode Caesar cipher encrypted English text");
-		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
-		String encrypted = input.nextLine(); encrypted = encrypted.toLowerCase();
-		String[] decrypted = new String[25]; // the 25 decoded versions
-		String[] dicWords = new String[10000]; // the 10000 English words from the dictionary
+	public static void crackTheCode(String[] dicWords, String[] decrypted) {
+		byte bestMatch = findBestMatch(decrypted, dicWords);
+		System.out.println("\n=======< Cracking the code >=======\n");
+		System.out.println(decrypted[bestMatch]);
+		System.out.println("\n============< The End >============\n");
+	}
+
+	
+	public static void main(String[] args) throws IOException {		
+		showInitialMessage();
 		
-		extractWordsIntoArray(dicWords);
+		String encrypted = getUserInput(); // the encrypted text
+		String[] decrypted = new String[25]; // the 25 decoded versions
+		String[] dicWords = new String[10000]; // the 10K English words from the dictionary
 		
 		populateDecryptedArray(decrypted, encrypted);
 		
-		byte bestMatch = findBestMatch(decrypted, dicWords);
+		extractWordsIntoArray(dicWords);
 		
-		System.out.println("\n=======< Cracking the code >=======\n");
-		System.out.println(decrypted[bestMatch]);
-		
-		input.close();
+		crackTheCode(dicWords, decrypted);
 	}
 
 }
