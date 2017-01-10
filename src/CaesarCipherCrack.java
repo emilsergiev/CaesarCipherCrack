@@ -20,14 +20,27 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class CaesarCipherCrack {
-
+	
+	public static void showInitialMessage() {
+		System.out.println("CaesarCipherCrackV2 Copyright (C) 2017 Emil Sergiev GNU GPL 3.0");
+		System.out.println("---------------------------------------------------------------");
+		System.out.println("A tool to crack and decode Caesar cipher encrypted text");
+		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
+	}
+	
+	public static String getUserInput(Scanner input) {
+		String encrypted = input.nextLine();
+		encrypted = encrypted.toLowerCase();
+		return encrypted;
+	}
+	
 	public static char findPopular(char[] original) {
 		char sorted[] = getNewSorted(original);
 		char previous = sorted[0];
 		char popular = sorted[0];
 		int count = 1;
 		int maxCount = 1;
-
+		
 		for (int i = 1; i < sorted.length; i++) {
 			if (sorted[i] == previous)
 				count++;
@@ -43,7 +56,7 @@ public class CaesarCipherCrack {
 		if (count > maxCount) return sorted[sorted.length-1];
 		else return popular;
 	}
-
+	
 	public static char[] getNewSorted(char[] original) {
 		int newLength = 0; // the length for the new array to be sorted
 		for (int i = 0; i < original.length; i++) {
@@ -61,8 +74,10 @@ public class CaesarCipherCrack {
 		Arrays.sort(sorted);
 		return sorted;
 	}
-
-	public static void setCommonKeys(char mostPopular, byte[] commonKey) {
+	
+	public static byte[] findPopularKeys(char mostPopular) {
+		byte[] commonKey = new byte[3]; // the 3 most common keys
+		
 		if (mostPopular != 'e') commonKey[0] = findKey(mostPopular, 'e');
 		else commonKey[0] = findKey(mostPopular, 't');
 
@@ -75,8 +90,10 @@ public class CaesarCipherCrack {
 			commonKey[2] = findKey(mostPopular, 'h');
 		else
 			commonKey[2] = findKey(mostPopular, 'a');
+		
+		return commonKey;
 	}
-
+	
 	public static byte findKey(char popular, char common) {
 		byte key; // the key (offset) that will be returned
 		char start = 'a'; // start from a to z
@@ -93,45 +110,17 @@ public class CaesarCipherCrack {
 		if (key < 0) key = (byte) (key + 26);		
 		return key;
 	}
-
-	public static String decrypt(String encrypted, byte key) {
-		char[] array = encrypted.toCharArray();
-
-		for (int i = 0; i < array.length; i++) {
-			char letter = array[i];
-
-			if (letter != ' ') {
-				letter = (char) (letter - key);			
-				if (letter > 'z') letter = (char) (letter - 26);
-				if (letter < 'a') letter = (char) (letter + 26);
-			}
-			array[i] = letter;
-		}
-		return new String(array);
-	}
-
-	public static void main(String[] args) {
-		Scanner input = new Scanner(System.in);
-		System.out.println("CaesarCipherCrack Copyright (C) 2017 Emil Sergiev GNU GPL 3.0");
-		System.out.println("-------------------------------------------------------------");
-		System.out.println("A tool to decode Caesar cipher encrypted text");
-		System.out.println("\nEnter the encrypted text bellow to be decoded:\n");
-		String encrypted = input.nextLine(); encrypted = encrypted.toLowerCase();
-		char[] charArray = encrypted.toCharArray(); // the encrypted text converted to char array
-		char mostPopular = findPopular(charArray); // the most popular char
-		byte[] commonKey = new byte[3]; // the 3 most common keys
-
-		setCommonKeys(mostPopular, commonKey);
-
-		/******* Attempt the crack with the 3 most common keys *******/
+	
+	public static void attemptCommonCrack(String encrypted, byte[] commonKey) {
 		System.out.println("\nTesting with the 3 common keys: " + Arrays.toString(commonKey));
 		System.out.println("-------------------------------------------");
 		for (int i = 0; i < commonKey.length; i++) {
-			System.out.println("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]) + "\n");
+			System.out.println("Key " + commonKey[i] + ": " + decrypt(encrypted, commonKey[i]));
 		}
-		System.out.println("===========================================\n");
-
-		/******* Choice to exit or do a brute force attack *******/
+		System.out.println("\n===========================================\n");
+	}
+	
+	public static void quitOrBruteForce(String encrypted, byte[] commonKey, Scanner input) {
 		System.out.println("Not satisfied with the results???\n");
 		System.out.println("For brute force attack enter 1");
 		System.out.println("To exit the program enter 2\n");
@@ -155,6 +144,37 @@ public class CaesarCipherCrack {
 				choice = input.nextByte();
 			}
 		}
+	}
+	
+	public static String decrypt(String encrypted, byte key) {
+		char[] array = encrypted.toCharArray();
+
+		for (int i = 0; i < array.length; i++) {
+			char letter = array[i];
+
+			if (letter != ' ') {
+				letter = (char) (letter - key);			
+				if (letter > 'z') letter = (char) (letter - 26);
+				if (letter < 'a') letter = (char) (letter + 26);
+			}
+			array[i] = letter;
+		}
+		return new String(array);
+	}
+
+	public static void main(String[] args) {
+		showInitialMessage();
+		
+		Scanner input = new Scanner(System.in);
+		String encrypted = getUserInput(input); // the original encrypted text
+		char[] charArray = encrypted.toCharArray(); // the encrypted text converted to char array
+		char mostPopular = findPopular(charArray); // the most popular char
+		byte[] commonKey = findPopularKeys(mostPopular); // the 3 most common keys
+
+		attemptCommonCrack(encrypted, commonKey);
+		
+		quitOrBruteForce(encrypted, commonKey, input);	
+		
 		input.close();
 	}
 

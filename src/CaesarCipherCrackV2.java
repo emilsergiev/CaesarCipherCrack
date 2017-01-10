@@ -40,6 +40,12 @@ public class CaesarCipherCrackV2 {
 		return encrypted;
 	}
 	
+	public static void populateDecryptedArray(String[] decrypted, String encrypted) {
+		for (byte i = 0; i < decrypted.length; i++) {
+			decrypted[i] = decrypt(encrypted, (byte) (i+1));
+		}
+	}
+	
 	public static void extractWordsIntoArray(String[] dicWords) throws IOException {
 		File dir = new File("."); // use . to get same directory
 		File dic = new File(dir.getCanonicalPath() + File.separator + "google-10000-english.txt");
@@ -50,12 +56,6 @@ public class CaesarCipherCrackV2 {
 			dicWords[i] = br.readLine();
 		}
 		br.close();
-	}
-	
-	public static void populateDecryptedArray(String[] decrypted, String encrypted) {
-		for (byte i = 0; i < decrypted.length; i++) {
-			decrypted[i] = decrypt(encrypted, (byte) (i+1));
-		}
 	}
 	
 	public static String decrypt(String encrypted, byte key) {
