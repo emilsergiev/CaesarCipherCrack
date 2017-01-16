@@ -45,8 +45,7 @@ public class CaesarCipherCrackV2 {
 	public static String getUserInput() {
 		Scanner input = new Scanner(System.in);
 		String encrypted = input.nextLine();
-		encrypted = encrypted.toLowerCase();
-		encrypted = encrypted.replaceAll("[^a-z ]", "");
+		encrypted = encrypted.toLowerCase().replaceAll("[^a-z ]", "");
 		input.close();
 		return encrypted;
 	}
