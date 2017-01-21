@@ -79,8 +79,12 @@ public class CaesarCipherCrackV2 {
 
 			if (letter != ' ') {
 				letter = (char) (letter - key);			
-				if (letter > 'z') letter = (char) (letter - 26);
-				if (letter < 'a') letter = (char) (letter + 26);
+				if (letter > 'z') {
+					letter = (char) (letter - 26);
+				}
+				if (letter < 'a') {
+					letter = (char) (letter + 26);
+				}
 			}
 			array[i] = letter;
 		}
@@ -88,31 +92,35 @@ public class CaesarCipherCrackV2 {
 	}
 
 	public static byte findBestMatch(String[] decrypted, String[] dicWords) {
-		char[] match = new char[decrypted.length]; // # of matched words in each decoded version
+		int[] match = matchedWords(decrypted, dicWords);
 		int max = match[0]; // the maximum # of matched words in each decoded version
-		byte index = 0; // the index position of the best match version which will be returned
-		// populate the match array with number of matches
+		byte position = 0; // the position of the best match version which will be returned
+		// find the most matches
+		for (byte i = 1; i < match.length; i++) {
+			if (match[i] > max) {
+				max = match[i];
+				position = i;
+			}
+		}
+		return position;
+	}
+
+	public static int[] matchedWords(String[] decrypted, String[] dicWords) {
+		int[] match = new int[decrypted.length]; // # of matched words in each decoded version
 		for (byte i = 0; i < decrypted.length; i++) {
 			String[] words = decrypted[i].split("\\s+");
 			for (int j = 0; j < words.length; j++) {
-				words[j] = words[j].replaceAll("[^\\w]", ""); // replace non-word characters
+				words[j] = words[j].replaceAll("[^\\w]", "");
 				for (int x = 0; x < dicWords.length; x++) {
 					if (words[j].equals(dicWords[x])) {
 						match[i]++;
 					}
 				}
 			}
-		}
-		// find the most matches
-		for (byte i = 1; i < match.length; i++) {
-			if (match[i] > max) {
-				max = match[i];
-				index = i;
-			}
-		}
-		return index;
+		}		
+		return match;
 	}
-
+	
 	public static void crackTheCode(String[] dicWords, String[] decrypted) {
 		byte bestMatch = findBestMatch(decrypted, dicWords);
 		System.out.println("\n=======< Cracking the code >=======\n");
