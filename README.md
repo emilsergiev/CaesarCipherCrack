@@ -29,4 +29,4 @@ A different version using a different method
 **Cons:**
 - The main downside is that this version will work only for English encrypted text. The original version will work for any foreign language encrypted text that uses the pure Latin alphabet! 
 - ~~Another downside maybe is that it will be slower than the original version. It uses more RAM memory resources and maybe slowing down the whole computer system as well if the encrypted text is too large... I'm not an expert on memory management but my logic tells me that this method uses much more memory resources.~~
-After running some tests this hardly seems an issue!  :simple_smile:
+After running some tests this hardly seems an issue! :smile:
